@@ -12,7 +12,6 @@
 #include <portaudio.h>
 #include <queue>
 #include <thread>
-#define sleepms(val) std::this_thread::sleep_for(val##ms)
 #define SAMPLE_RATE (44100)
 #define FREQUENCY (440.0f)
 
