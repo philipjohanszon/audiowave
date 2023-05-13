@@ -4,6 +4,7 @@ project(audiowave)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 
 # Add the flags for GCC and Clang compilers

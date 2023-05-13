@@ -2,8 +2,15 @@
 #include "../interfaces/BaseWave.h"
 
 namespace View {
+    BaseWave* audioWave = nullptr;
 
-    void init(bool* viewCanStart, baseWave wave) {
+    void init(bool* viewCanStart, BaseWave* wave) {
+        if (audioWave == nullptr) {
+            return;
+        }
+
+        audioWave = wave;
+
         while (!(*viewCanStart)) {sf::sleep(sf::milliseconds(100));}
 
         draw();
@@ -26,6 +33,7 @@ namespace View {
                 }
             }
 
+            window.draw(sf::CircleShape(50, 50));
 
             // Clear the window
             window.clear(sf::Color::White);
