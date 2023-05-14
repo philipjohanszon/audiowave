@@ -17,26 +17,22 @@
 
 SineWave* wave = new SineWave(SAMPLE_RATE, FREQUENCY);
 
-int callback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer,
-               const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData) {
-    return wave->PaStreamCallback(inputBuffer, outputBuffer, framesPerBuffer, timeInfo, statusFlags, userData);
-}
-
-void render(bool* viewCanStart) {
-    View::init(viewCanStart, wave);
-}
-
 void audio(bool* started) { 
     Audio::init(started, SAMPLE_RATE, wave);
 }
 
 int main()
 {
-    bool* audioStarted = (bool*)malloc(sizeof(bool));
 
-    std::thread audioThread(audio, audioStarted);
+    bool audioStarted = false;
 
-    render(audioStarted);
+    std::thread audioThread(audio, &audioStarted);
+
+    View::init(&audioStarted, wave);
+
+    Pa_Terminate();
+
+    audioThread.join();
     
     return 0;
 }

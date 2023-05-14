@@ -12,6 +12,9 @@ public:
                                PaStreamCallbackFlags statusFlags,
                                void *userData) = 0;
     virtual double getSampleRate() = 0;
+    virtual float calculate(double phase) = 0;
+    virtual float getPhase() = 0;
+    virtual float getFrequency() = 0;
 };
 
 #endif

@@ -1,12 +1,15 @@
 #include "audio.h"
 #include "../interfaces/BaseWave.h"
+#include <cstdio>
 #include <iostream>
+#include <malloc/_malloc.h>
+#include <portaudio.h>
 
 namespace Audio {
     BaseWave *audioWave = nullptr;
 
     void init(bool *started, double sampleRate, BaseWave *wave) {
-        if (audioWave == nullptr) {
+        if (wave == nullptr) {
             return;
         }
 
@@ -27,6 +30,10 @@ namespace Audio {
         Pa_StartStream(stream);
 
         *started = true;
+
+        while (true) {
+            Pa_Sleep(2000);
+        }
     }
 
     int callback(const void *inputBuffer, void *outputBuffer,

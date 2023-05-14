@@ -23,7 +23,7 @@ int SineWave::PaStreamCallback(const void *inputBuffer, void *outputBuffer, unsi
 
     for (unsigned long i = 0; i < framesPerBuffer; i++)
     {
-        *out++ = calculate();
+        *out++ = calculate(m_phase);
 
         m_phase += (m_frequency / m_sampleRate);
         if (m_phase >= 2.0f) m_phase -= 2.0f;
@@ -37,8 +37,8 @@ double SineWave::getSampleRate() {
     return m_sampleRate;
 }
 
-float SineWave::calculate() {
-    return sinf(m_phase * TWO_PI);
+float SineWave::calculate(double phase) {
+    return sinf(phase * TWO_PI);
 }
 
 float SineWave::getPhase() {
