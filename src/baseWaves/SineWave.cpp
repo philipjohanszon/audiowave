@@ -38,7 +38,13 @@ double SineWave::getSampleRate() {
 }
 
 float SineWave::calculate(double phase) {
-    return sinf(phase * TWO_PI);
+    float value = sinf(phase * TWO_PI);
+    
+    for (Filter* filter : m_filters) {
+        value = filter->calculate(value);
+    }
+
+    return value;
 }
 
 float SineWave::getPhase() {
@@ -47,4 +53,8 @@ float SineWave::getPhase() {
 
 float SineWave::getFrequency() {
     return m_frequency;
+}
+
+void SineWave::addFilter(Filter* filter) {
+    this->m_filters.push_back(filter);
 }

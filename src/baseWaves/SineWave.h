@@ -1,8 +1,10 @@
 #pragma once
 
 #include "../interfaces/BaseWave.h"
+#include "../interfaces/Filter.h"
 #include <portaudio.h>
 #include <queue>
+#include <vector>
 
 class SineWave : public BaseWave {
 public:
@@ -15,10 +17,12 @@ public:
     float calculate(double phase) override;
     float getPhase() override;
     float getFrequency() override;
+    void addFilter(Filter* filter) override;
 
 private: 
     double m_sampleRate;
     float m_phase;
     float m_frequency;
+    std::vector<Filter*> m_filters;
 };
 

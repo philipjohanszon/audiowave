@@ -1,32 +1,25 @@
 #include "baseWaves/SineWave.h"
-#include <chrono>
-#include <malloc/_malloc.h>
-#include <ratio>
-#include <thread>
+#include "filters/HighpassFilter.h"
+#include "interfaces/BaseWave.h"
 #include "view/view.h"
 #include "portAudio/audio.h"
-#include <SFML/Graphics.hpp>
-#include <cmath>
-#include <cstdio>
-#include <iostream>
-#include <portaudio.h>
-#include <queue>
 #include <thread>
 #define SAMPLE_RATE (44100)
 #define FREQUENCY (440.0f)
 
-SineWave* wave = new SineWave(SAMPLE_RATE, FREQUENCY);
-
-void audio(bool* started) { 
+void audio(bool* started, BaseWave* wave) { 
     Audio::init(started, SAMPLE_RATE, wave);
 }
 
 int main()
 {
+    SineWave* wave = new SineWave(SAMPLE_RATE, FREQUENCY);
+    HighpassFilter* highpass = new HighpassFilter(0.4f);
+    wave->addFilter(highpass);
 
     bool audioStarted = false;
 
-    std::thread audioThread(audio, &audioStarted);
+    std::thread audioThread(audio, &audioStarted, wave);
 
     View::init(&audioStarted, wave);
 

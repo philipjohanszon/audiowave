@@ -42,7 +42,7 @@ namespace View {
             double frequency = audioWave->getFrequency();
 
             for (unsigned int i = 0; i < window.getSize().x; i++) {
-                const sf::Vertex vertex = sf::Vertex(sf::Vector2f((float) i, audioWave->calculate(phase)*300 + 500), sf::Color::Black);
+                const sf::Vertex vertex = sf::Vertex(sf::Vector2f((float) i, audioWave->calculate(phase)*-300 + 800), sf::Color::Black);
 
                 phase += (frequency / sampleRate);
                 if (phase >= 2.0f) phase -= 2.0f;
