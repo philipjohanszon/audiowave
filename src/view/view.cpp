@@ -16,8 +16,6 @@ namespace View {
 
         while (!(*viewCanStart)) {sf::sleep(sf::milliseconds(100));}
 
-        printf("started");
-
         draw();
     }
 
