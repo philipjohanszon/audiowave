@@ -1,5 +1,6 @@
 #include "baseWaves/SineWave.h"
 #include "filters/HighpassFilter.h"
+#include "filters/LowpassFilter.h"
 #include "interfaces/BaseWave.h"
 #include "view/view.h"
 #include "portAudio/audio.h"
@@ -14,8 +15,12 @@ void audio(bool* started, BaseWave* wave) {
 int main()
 {
     SineWave* wave = new SineWave(SAMPLE_RATE, FREQUENCY);
+
     HighpassFilter* highpass = new HighpassFilter(0.4f);
     wave->addFilter(highpass);
+
+    LowpassFilter* lowpass = new LowpassFilter(0.8f);
+    wave->addFilter(lowpass);
 
     bool audioStarted = false;
 

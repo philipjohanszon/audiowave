@@ -33,10 +33,12 @@ namespace View {
                 if (event.type == sf::Event::Closed)
                 {
                     window.close();
+                    return;
                 }
             }
 
             sf::VertexArray curve(sf::PrimitiveType::LineStrip, 100);
+
             double phase = audioWave->getPhase();
             double sampleRate = audioWave->getSampleRate();
             double frequency = audioWave->getFrequency();
